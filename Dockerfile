@@ -24,6 +24,8 @@ COPY --from=frontend /app/public/build ./public/build
 RUN mkdir -p runtime storage/logs database \
     && chown -R root:root runtime storage database
 
+RUN chmod +x /opt/www/entrypoint.sh
+
 ENV APP_ENV=production
 ENV APP_DEBUG=false
 ENV HTTP_SERVER_HOST=0.0.0.0
@@ -31,4 +33,4 @@ ENV HTTP_SERVER_PORT=9501
 
 EXPOSE 9501
 
-CMD ["php", "artisan", "start"]
+CMD ["/opt/www/entrypoint.sh"]
